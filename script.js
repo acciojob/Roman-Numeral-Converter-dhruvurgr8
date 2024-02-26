@@ -1,38 +1,36 @@
 function convertToRoman(num) {
-  	const obj = {
-      0:['M',1000], 
-      1:['D', 500], 
-      2:['C', 100], 
-      3:['L', 50], 
-      4:['X', 10], 
-      5:['V', 5], 
-      6:['I', 1]
-    };
+  if (num <= 0 || num > 100000) {
+    return "Number out of range (0 - 100000)";
+  }
 
-    let result = '';
+  const romanSymbols = [
+    ['M', 1000],
+    ['CM', 900],
+    ['D', 500],
+    ['CD', 400],
+    ['C', 100],
+    ['XC', 90],
+    ['L', 50],
+    ['XL', 40],
+    ['X', 10],
+    ['IX', 9],
+    ['V', 5],
+    ['IV', 4],
+    ['I', 1]
+  ];
 
-    for (let key in obj) {
-        const [symbol, value] = obj[key];
-        
-        // Repeat the symbol while the number is greater than or equal to its value
-        while (num >= value) {
-            result += symbol;
-            num -= value;
-        }
+  let result = '';
 
-        
-        const nextIndex = parseInt(key) + 1;
-        if (nextIndex in obj) {
-            const [nextSymbol, nextValue] = obj[nextIndex];
-            if (value - nextValue <= num && num < value) {
-                result += nextSymbol + symbol;
-                num -= (value - nextValue);
-            }
-        }
+  for (let i = 0; i < romanSymbols.length; i++) {
+    const [symbol, value] = romanSymbols[i];
+
+    while (num >= value) {
+      result += symbol;
+      num -= value;
     }
+  }
 
-    return result;
-
+  return result;
 }
 // You can test your code by running the above function and printing it to console by pressing the run button at the top. To run it with input 36, uncomment the following line
 
